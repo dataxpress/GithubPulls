@@ -7,6 +7,7 @@
 //
 
 #import "MainViewController.h"
+#import "NSData+Base64.h"
 
 @interface MainViewController ()
 
@@ -64,24 +65,57 @@
     NSLog(@"Doubleclick on row %d.",(int)sender.clickedRow);
     
 
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:self.data[sender.clickedRow
-                                                                          ][@"url"]]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:self.data[sender.clickedRow][@"url"]]];
     
 }
 
+-(NSString*)username
+{
+#warning put a real username here
+    return @"";
+}
+-(NSString*)password
+{
+#warning put a real password here
+    return @"";
+}
 
 
 #pragma mark - Network tools
 -(void)reloadData
 {
+    self.data = [NSMutableArray array];
+    
+    NSMutableURLRequest* jsonRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://api.github.com/repos/withbuddies/iOS-core/pulls"]];
+    
+    NSString *authStr = [NSString stringWithFormat:@"%@:%@", [self username], [self password]];
+    NSData *authData = [authStr dataUsingEncoding:NSASCIIStringEncoding];
+    NSString *authValue = [NSString stringWithFormat:@"Basic %@", [authData base64EncodingWithLineLength:80]];
+    [jsonRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
+
+    [NSURLConnection sendAsynchronousRequest:jsonRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * response, NSData* data, NSError * error) {
+        
+        NSDictionary* result = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        for(NSDictionary* pull in result)
+        {
+            NSMutableDictionary* tempItem = [NSMutableDictionary dictionary];
+            
+            tempItem[@"url"] = pull[@"_links"][@"html"][@"href"];
+            tempItem[@"pullno"] = pull[@"number"];
+            tempItem[@"pullname"] = pull[@"title"];
+            tempItem[@"dateopened"] = pull[@"updated_at"];
+            tempItem[@"reponame"] = pull[@"base"][@"repo"][@"name"];
+            
+            [self.data addObject:tempItem];
+            
+        }
+        
+        
+        [self.tableView reloadData];
+
+    }];
     
     
-    
-    
-    
-    
-    
-    [self.tableView reloadData];
 }
 
 #pragma mark - Interface methods

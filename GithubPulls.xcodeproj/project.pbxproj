@@ -19,6 +19,8 @@
 		4C7135FC178DDA3E001A5B9A /* GithubPullsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7135FB178DDA3E001A5B9A /* GithubPullsTests.m */; };
 		4C713608178DDAC4001A5B9A /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C713606178DDAC4001A5B9A /* MainViewController.m */; };
 		4C713609178DDAC4001A5B9A /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C713607178DDAC4001A5B9A /* MainViewController.xib */; };
+		4C71360C178DE73B001A5B9A /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C71360B178DE73B001A5B9A /* NSData+Base64.m */; };
+		4C71360D178DE73B001A5B9A /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C71360B178DE73B001A5B9A /* NSData+Base64.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,8 @@
 		4C713605178DDAC4001A5B9A /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		4C713606178DDAC4001A5B9A /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		4C713607178DDAC4001A5B9A /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		4C71360A178DE73B001A5B9A /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		4C71360B178DE73B001A5B9A /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +123,8 @@
 		4C7135D7178DDA3E001A5B9A /* GithubPulls */ = {
 			isa = PBXGroup;
 			children = (
+				4C71360A178DE73B001A5B9A /* NSData+Base64.h */,
+				4C71360B178DE73B001A5B9A /* NSData+Base64.m */,
 				4C7135E3178DDA3E001A5B9A /* TGAppDelegate.h */,
 				4C7135E4178DDA3E001A5B9A /* TGAppDelegate.m */,
 				4C7135E6178DDA3E001A5B9A /* MainMenu.xib */,
@@ -274,6 +280,7 @@
 				4C7135DE178DDA3E001A5B9A /* main.m in Sources */,
 				4C7135E5178DDA3E001A5B9A /* TGAppDelegate.m in Sources */,
 				4C713608178DDAC4001A5B9A /* MainViewController.m in Sources */,
+				4C71360C178DE73B001A5B9A /* NSData+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C7135FC178DDA3E001A5B9A /* GithubPullsTests.m in Sources */,
+				4C71360D178DE73B001A5B9A /* NSData+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
