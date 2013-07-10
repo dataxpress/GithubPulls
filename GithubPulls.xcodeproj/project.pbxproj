@@ -17,6 +17,8 @@
 		4C7135F1178DDA3E001A5B9A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7135D1178DDA3E001A5B9A /* Cocoa.framework */; };
 		4C7135F9178DDA3E001A5B9A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C7135F7178DDA3E001A5B9A /* InfoPlist.strings */; };
 		4C7135FC178DDA3E001A5B9A /* GithubPullsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7135FB178DDA3E001A5B9A /* GithubPullsTests.m */; };
+		4C713608178DDAC4001A5B9A /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C713606178DDAC4001A5B9A /* MainViewController.m */; };
+		4C713609178DDAC4001A5B9A /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C713607178DDAC4001A5B9A /* MainViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,9 @@
 		4C7135F8178DDA3E001A5B9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4C7135FA178DDA3E001A5B9A /* GithubPullsTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GithubPullsTests.h; sourceTree = "<group>"; };
 		4C7135FB178DDA3E001A5B9A /* GithubPullsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GithubPullsTests.m; sourceTree = "<group>"; };
+		4C713605178DDAC4001A5B9A /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		4C713606178DDAC4001A5B9A /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		4C713607178DDAC4001A5B9A /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +123,9 @@
 				4C7135E4178DDA3E001A5B9A /* TGAppDelegate.m */,
 				4C7135E6178DDA3E001A5B9A /* MainMenu.xib */,
 				4C7135D8178DDA3E001A5B9A /* Supporting Files */,
+				4C713605178DDAC4001A5B9A /* MainViewController.h */,
+				4C713606178DDAC4001A5B9A /* MainViewController.m */,
+				4C713607178DDAC4001A5B9A /* MainViewController.xib */,
 			);
 			path = GithubPulls;
 			sourceTree = "<group>";
@@ -228,6 +236,7 @@
 				4C7135DC178DDA3E001A5B9A /* InfoPlist.strings in Resources */,
 				4C7135E2178DDA3E001A5B9A /* Credits.rtf in Resources */,
 				4C7135E8178DDA3E001A5B9A /* MainMenu.xib in Resources */,
+				4C713609178DDAC4001A5B9A /* MainViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +273,7 @@
 			files = (
 				4C7135DE178DDA3E001A5B9A /* main.m in Sources */,
 				4C7135E5178DDA3E001A5B9A /* TGAppDelegate.m in Sources */,
+				4C713608178DDAC4001A5B9A /* MainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

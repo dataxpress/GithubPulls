@@ -18,6 +18,10 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
+    self.mainViewController = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
+    
+    [self.window setContentView:self.mainViewController.view];
+
 }
 
 @end
