@@ -141,6 +141,8 @@
         else
         {
             
+            [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(reloadData) userInfo:nil repeats:NO];
+            
             [self.waitSpinner stopAnimation:nil];
             [self.tableView reloadData];
         }
