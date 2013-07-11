@@ -13,5 +13,7 @@
 @property (assign) IBOutlet NSCollectionView *mainCollectionView;
 - (IBAction)refreshClicked:(id)sender;
 @property (assign) IBOutlet NSTableView *tableView;
+- (IBAction)settingsClicked:(id)sender;
+@property (assign) IBOutlet NSProgressIndicator *waitSpinner;
 
 @end

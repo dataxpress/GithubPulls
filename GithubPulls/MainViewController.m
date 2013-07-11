@@ -8,6 +8,8 @@
 
 #import "MainViewController.h"
 #import "NSData+Base64.h"
+#import "TGSettingsWindowController.h"
+#import "TGDataManager.h"
 
 @interface MainViewController ()
 
@@ -22,15 +24,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Initialization code here.
-        self.data = [@[
-                     @{@"reponame": @"iOS-Core",
-                     @"pullno" : @"#90",
-                     @"pullname" : @"Feature settings refactor",
-                     @"dateopened" : @"Today 11:35am",
-                     @"url" : @"http://github.com"}
-                     
-                     
-                      ] mutableCopy];
+       
     }
     
     return self;
@@ -41,6 +35,9 @@
     [super awakeFromNib];
     self.tableView.target = self;
     self.tableView.doubleAction = @selector(doubleClick:);
+    [self reloadData];
+    
+    [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(reloadData) userInfo:nil repeats:YES];
 }
 
 
@@ -69,26 +66,22 @@
     
 }
 
--(NSString*)username
-{
-#warning put a real username here
-    return @"";
-}
--(NSString*)password
-{
-#warning put a real password here
-    return @"";
-}
-
-
 #pragma mark - Network tools
 -(void)reloadData
 {
     self.data = [NSMutableArray array];
     
-    NSMutableURLRequest* jsonRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://api.github.com/repos/withbuddies/iOS-core/pulls"]];
+    [self loadRepositories:[TGDataManager sharedDataManager].repos];
+}
+
+-(void)loadRepositories:(NSArray*)repositories
+{
+    [self.waitSpinner startAnimation:nil];
     
-    NSString *authStr = [NSString stringWithFormat:@"%@:%@", [self username], [self password]];
+    NSString* repository = [repositories lastObject];
+    NSMutableURLRequest* jsonRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.github.com/repos/%@/pulls",repository]]];
+    
+    NSString *authStr = [NSString stringWithFormat:@"%@:%@", [[TGDataManager sharedDataManager] username], [[TGDataManager sharedDataManager] password]];
     NSData *authData = [authStr dataUsingEncoding:NSASCIIStringEncoding];
     NSString *authValue = [NSString stringWithFormat:@"Basic %@", [authData base64EncodingWithLineLength:80]];
     [jsonRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
@@ -110,9 +103,25 @@
             
         }
         
+        [self.data sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            NSComparisonResult result = [obj1[@"reponame"] compare:obj2[@"reponame"]];
+            if(result == NSOrderedSame)
+            {
+                result = [obj1[@"pullno"] compare:obj2[@"pullno"]];
+            }
+         return result;
+         }];
         
-        [self.tableView reloadData];
-
+        if(repositories.count > 1)
+        {
+            [self loadRepositories:[repositories subarrayWithRange:NSMakeRange(0, repositories.count-1)]];
+        }
+        else
+        {
+            
+            [self.waitSpinner stopAnimation:nil];
+            [self.tableView reloadData];
+        }
     }];
     
     
@@ -123,5 +132,14 @@
 - (IBAction)refreshClicked:(id)sender
 {
     [self reloadData];
+}
+- (IBAction)settingsClicked:(id)sender {
+    TGSettingsWindowController* settingsWinCon = [[TGSettingsWindowController alloc] initWithWindowNibName:@"TGSettingsWindowController"];
+    
+    
+    [[NSApplication sharedApplication] runModalForWindow:settingsWinCon.window];
+    
+    [settingsWinCon release];
+    
 }
 @end
