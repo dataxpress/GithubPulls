@@ -31,10 +31,18 @@
     
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     
-    self.usernameField.stringValue = [TGDataManager sharedDataManager].username;
-    self.passwordField.stringValue = [TGDataManager sharedDataManager].password;
-    self.reposField.string = [[TGDataManager sharedDataManager].repos componentsJoinedByString:@"\n"];
-    
+    if([TGDataManager sharedDataManager].username != nil)
+    {
+        self.usernameField.stringValue = [TGDataManager sharedDataManager].username;
+    }
+    if([TGDataManager sharedDataManager].password != nil)
+    {
+        self.passwordField.stringValue = [TGDataManager sharedDataManager].password;
+    }
+    if([TGDataManager sharedDataManager].repos != nil)
+    {
+        self.reposField.string = [[TGDataManager sharedDataManager].repos componentsJoinedByString:@"\n"];
+    }
     
 }
 

@@ -36,8 +36,6 @@
     self.tableView.target = self;
     self.tableView.doubleAction = @selector(doubleClick:);
     [self reloadData];
-    
-    [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(reloadData) userInfo:nil repeats:YES];
 }
 
 
@@ -69,6 +67,13 @@
 #pragma mark - Network tools
 -(void)reloadData
 {
+    
+    if([TGDataManager sharedDataManager].repos == nil)
+    {
+        [self settingsClicked:nil];
+        return;
+    }
+    
     self.data = [NSMutableArray array];
     
     [self loadRepositories:[TGDataManager sharedDataManager].repos];
@@ -88,7 +93,24 @@
 
     [NSURLConnection sendAsynchronousRequest:jsonRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * response, NSData* data, NSError * error) {
         
-        NSDictionary* result = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        if(data == nil || error != nil)
+        {
+            [self.waitSpinner stopAnimation:nil];
+            NSAlert* alert = [NSAlert alertWithMessageText:@"Error" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"An error occurred.  Check your username, password, and make sure the list of repositories doesn't have any weird characters and is a newline-separated list in the format: organization/repo\n\n%@",error.localizedDescription];
+            [alert runModal];
+            return;
+        }
+        
+        NSArray* result = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        
+        if([result isKindOfClass:[NSDictionary class]] && ((NSDictionary*)result)[@"message"] != nil)
+        {
+            [self.waitSpinner stopAnimation:nil];
+            NSAlert* alert = [NSAlert alertWithMessageText:@"Error" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"An error occurred.  Check your username, password, and make sure the list of repositories doesn't have any weird characters and is a newline-separated list in the format: organization/repo\n\n%@",((NSDictionary*)result)[@"message"]];
+            [alert runModal];
+            return;
+        }
+        
         for(NSDictionary* pull in result)
         {
             NSMutableDictionary* tempItem = [NSMutableDictionary dictionary];
@@ -138,6 +160,8 @@
     
     
     [[NSApplication sharedApplication] runModalForWindow:settingsWinCon.window];
+    
+    [self refreshClicked:nil];
     
     [settingsWinCon release];
     
