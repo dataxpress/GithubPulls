@@ -126,7 +126,7 @@
         }
         
         [self.data sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-            NSComparisonResult result = [obj1[@"reponame"] compare:obj2[@"reponame"]];
+            NSComparisonResult result = [obj1[@"reponame"] compare:obj2[@"reponame"] options:NSCaseInsensitiveSearch];
             if(result == NSOrderedSame)
             {
                 result = [obj1[@"pullno"] compare:obj2[@"pullno"]];
